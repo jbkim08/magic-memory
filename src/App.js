@@ -79,6 +79,7 @@ function App() {
           />
         ))}
       </div>
+      <p>턴수: {turns}</p>
     </div>
   );
 }
