@@ -3,12 +3,12 @@ import './App.css';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
-  { src: '/img/helmet-1.png' },
-  { src: '/img/potion-1.png' },
-  { src: '/img/ring-1.png' },
-  { src: '/img/scroll-1.png' },
-  { src: '/img/shield-1.png' },
-  { src: '/img/sword-1.png' },
+  { src: '/img/helmet-1.png', matched: false },
+  { src: '/img/potion-1.png', matched: false },
+  { src: '/img/ring-1.png', matched: false },
+  { src: '/img/scroll-1.png', matched: false },
+  { src: '/img/shield-1.png', matched: false },
+  { src: '/img/sword-1.png', matched: false },
 ];
 
 function App() {
@@ -37,7 +37,16 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
-        console.log('카드를 맞췄어요!');
+        //같은 이미지의 카드들만 matched를 true로 업데이트함
+        setCards((prevCards) => {
+          return prevCards.map((card) => {
+            if (card.src === choiceOne.src) {
+              return { ...card, matched: true };
+            } else {
+              return card;
+            }
+          });
+        });
         resetTurn();
       } else {
         console.log('틀렸네요.');
@@ -51,7 +60,7 @@ function App() {
     setChoiceTwo(null);
     setTurns((prev) => prev + 1);
   };
-
+  console.log(cards);
   return (
     <div className="App">
       <h1>Magic Match</h1>
