@@ -27,6 +27,8 @@ function App() {
     //섞은카드 저장
     setCards(shuffleCards);
     setTurns(0); //턴수 0
+    setChoiceOne(null);
+    setChoiceTwo(null);
   };
 
   //카드 선택시 기억하기
@@ -38,7 +40,7 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true); //다른 선택을 할수없도록
-      if (choiceOne.src === choiceTwo.src) {
+      if (choiceOne.src === choiceTwo.src && choiceOne.id !== choiceTwo.id) {
         //같은 이미지의 카드들만 matched를 true로 업데이트함
         setCards((prevCards) => {
           return prevCards.map((card) => {
@@ -63,7 +65,10 @@ function App() {
     setTurns((prev) => prev + 1);
     setDisabled(false); //이제 선택가능
   };
-  console.log(cards);
+  //처음 시작시 설정
+  useEffect(() => {
+    shuffleCards();
+  }, []);
   return (
     <div className="App">
       <h1>Magic Match</h1>
